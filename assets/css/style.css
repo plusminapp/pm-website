@@ -25,6 +25,7 @@ body {
 
 body {
     font-family: "DM Sans", "Segoe UI", sans-serif;
+    font-size: larger;
     color: var(--ink);
     background:
         radial-gradient(circle at 92% 4%, #f3ddbe 0, transparent 36%),
@@ -155,7 +156,7 @@ h3 {
 
 .site-header {
     position: sticky;
-    top: 0;
+    top: var(--ann-bar-height, 0px);
     z-index: 20;
     backdrop-filter: blur(8px);
     background: rgba(247, 245, 239, 0.88);
@@ -824,4 +825,177 @@ figure.pm-lightbox a:hover::after {
 #pm-lightbox-close:hover {
     background: rgba(255, 255, 255, 0.3);
     transform: scale(1.1);
+}
+
+/* ================================================
+   Announcement Bar
+   Achtergrond: licht mint (#e8f4f2) — afgeleid van
+   --mint: #0f766e, combineert met de bestaande
+   teal/sand gradients van de pagina.
+   ================================================ */
+
+.announcement-bar {
+    position: sticky;
+    top: 0;
+    z-index: 21;
+    background: #e8f4f2;
+    border-bottom: 1px solid rgba(15, 118, 110, 0.18);
+    box-shadow: 0 2px 10px rgba(24, 53, 74, 0.09);
+    max-height: 200px;
+    overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.3s ease;
+    opacity: 1;
+}
+
+.announcement-bar.is-dismissed {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+    border-bottom: none;
+    box-shadow: none;
+}
+
+.ann-bar-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    flex-wrap: wrap;
+}
+
+.ann-bar-main {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    min-width: 0;
+    flex: 1 1 320px;
+}
+
+.ann-bar-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mint);
+    width: 1.1rem;
+    height: 1.1rem;
+    font-size: 1.05rem;
+    line-height: 1;
+    overflow: hidden;
+}
+
+.ann-bar-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.ann-bar-icon > * {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.ann-bar-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.45;
+}
+
+.ann-bar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.ann-btn {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+    border: 0;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.ann-btn:hover {
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.ann-btn-primary {
+    background: var(--mint);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(15, 118, 110, 0.28);
+}
+
+.ann-btn-primary:hover {
+    box-shadow: 0 6px 16px rgba(15, 118, 110, 0.38);
+    color: #fff;
+}
+
+.ann-btn-secondary {
+    background: transparent;
+    color: var(--mint);
+    border: 1.5px solid var(--mint);
+}
+
+.ann-btn-secondary:hover {
+    background: rgba(15, 118, 110, 0.07);
+}
+
+.ann-bar-close {
+    background: none;
+    border: none;
+    padding: 0.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    border-radius: 50%;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    margin-left: 0.15rem;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.ann-bar-close svg {
+    width: 14px;
+    height: 14px;
+}
+
+.ann-bar-close:hover {
+    background: rgba(24, 53, 74, 0.09);
+    color: var(--ink);
+}
+
+@media (max-width: 600px) {
+    .ann-bar-icon {
+        display: none;
+    }
+
+    .ann-bar-main {
+        flex-basis: 100%;
+    }
+
+    .ann-bar-inner {
+        gap: 0.45rem;
+        padding: 0.5rem 0;
+    }
+
+    .ann-btn {
+        padding: 0.3rem 0.65rem;
+        font-size: 0.78rem;
+    }
 }

@@ -3,9 +3,13 @@
 <footer class="site-footer">
     <div class="container footer-grid">
         <div>
-            <h2>Missie</h2>
+            <h2>Missie & publicaties</h2>
             <p>Onze missie is het duurzaam verbeteren van de financiële
-                redzaamheid van mensen die weinig financiële zekerheid ervaren.</p>
+                redzaamheid van mensen die weinig financiële zekerheid ervaren.
+            </p>
+            <p>
+                <a href="<?php echo esc_url(home_url('/transparantie/')); ?>">Statuten | ANBI | Beleidsplan</a>
+            </p>
         </div>
 
         <div>
@@ -36,8 +40,8 @@
             <h2>Registraties</h2>
             <ul class="footer-menu">
                 <li>KvK: 42008149</li>
+                <li>RSIN: 869260728</li>
                 <li>ANBI: aanvraag loopt</li>
-                <li>BTW: aanvraag loopt</li>
             </ul>
         </div>
 

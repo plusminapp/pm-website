@@ -12,6 +12,10 @@ if (!defined('ABSPATH')) {
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<?php if ( is_page_template( 'page-banner-test.php' ) ) : ?>
+    <?php get_template_part( 'template-parts/announcement-bar' ); ?>
+<?php endif; ?>
+
 <header class="site-header">
     <div class="container nav-wrap">
         <div class="brand-wrap">

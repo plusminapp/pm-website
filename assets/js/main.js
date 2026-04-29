@@ -97,3 +97,54 @@
         openLightbox(link.href, img ? img.alt : '');
     });
 })();
+
+// ---- Announcement Bar ----
+(function () {
+    var bar = document.getElementById('announcement-bar');
+    if (!bar) {
+        return;
+    }
+
+    var barId     = bar.dataset.barId || 'announcement-bar';
+    var storeKey  = 'ann_dismissed_' + barId;
+    var root      = document.documentElement;
+
+    function setOffset() {
+        root.style.setProperty('--ann-bar-height', bar.offsetHeight + 'px');
+    }
+
+    // If this bar was already dismissed, hide it immediately (no animation)
+    if (localStorage.getItem(storeKey)) {
+        bar.style.display = 'none';
+        root.style.setProperty('--ann-bar-height', '0px');
+        return;
+    }
+
+    // Set initial offset and keep it in sync with viewport changes
+    setOffset();
+    if (typeof ResizeObserver !== 'undefined') {
+        new ResizeObserver(setOffset).observe(bar);
+    } else {
+        window.addEventListener('resize', setOffset);
+    }
+
+    // Close button
+    var closeBtn = bar.querySelector('.ann-bar-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+            bar.classList.add('is-dismissed');
+            root.style.setProperty('--ann-bar-height', '0px');
+
+            bar.addEventListener('transitionend', function handler() {
+                bar.style.display = 'none';
+                bar.removeEventListener('transitionend', handler);
+            }, { once: true });
+
+            try {
+                localStorage.setItem(storeKey, '1');
+            } catch (e) {
+                // private browsing / storage full — silently ignore
+            }
+        });
+    }
+})();
